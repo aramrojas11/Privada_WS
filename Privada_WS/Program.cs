@@ -1,5 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Privada_WS.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Le decimos a la API que use PostgreSQL con la cadena de conexión del appsettings
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 
 builder.Services.AddControllers();
