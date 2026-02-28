@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AccessControl.App.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:AccessControl.App"
+    xmlns:views="clr-namespace:AccessControl.App.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+        <Tab>
+            <ShellContent
+                Title="Login"
+                ContentTemplate="{DataTemplate views:LoginPage}"
+                Route="LoginPage" />
+        </Tab>
+    </TabBar>
+
+</Shell>
