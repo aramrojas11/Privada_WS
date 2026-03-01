@@ -1,96 +1,125 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AccessControl.App.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource PageBackground}">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#1E293B" Offset="0.0" />
-                <GradientStop Color="#0F172A" Offset="1.0" />
-            </LinearGradientBrush>
-        </Grid.Background>
-
+        <!--Fondo-->
+        <Image Source="bg_image_login.jpg"
+               Aspect="AspectFill"
+               Opacity="1.0"
+               HorizontalOptions="Fill"
+               VerticalOptions="Start"/>
         <ScrollView>
-            <VerticalStackLayout Spacing="25" Padding="30,80,30,30" VerticalOptions="Center">
-
-                <Label Text="Privada Catalanes"
-                       FontSize="34"
+            <!--Logo-->
+            <VerticalStackLayout
+                Spacing="20"
+                Padding="30,60,30,30">
+                <Image Source="logo_catalanes.png"
+                       HeightRequest="100"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,10"/>
+                <!--Nombre USUARIO-->
+                <Label Text="Bienvenido a&#10;Catalanes"
+                       FontSize="32"
                        FontAttributes="Bold"
-                       TextColor="White"
-                       HorizontalOptions="Center"
-                       CharacterSpacing="1.5" />
-                <Label Text="Control de Acceso Inteligente"
+                       TextColor="{StaticResource TextPrimary}"
+                       HorizontalTextAlignment="Center"
+                       LineHeight="1.1" />
+                <!--SUBTITULO-->
+                <Label Text="Gestiona tu acceso exclusivo"
                        FontSize="14"
-                       TextColor="#94A3B8"
+                       TextColor="{StaticResource TextSecondary}"
                        HorizontalOptions="Center"
-                       Margin="0,-15,0,30"/>
-
-                <Border Stroke="#334155"
-                        StrokeThickness="1"
-                        BackgroundColor="#1E293B"
-                        Padding="25,35"
-                        Margin="0,10">
+                       Margin="0,-10,0,20"/>
+                
+                <!--Input CORREO-->
+                <Border Style="{StaticResource InputBorderStyle}">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="24" />
+                        <RoundRectangle CornerRadius="27" />
                     </Border.StrokeShape>
-                    <Border.Shadow>
-                        <Shadow Brush="Black" Offset="0,15" Radius="30" Opacity="0.6" />
-                    </Border.Shadow>
-
-                    <VerticalStackLayout Spacing="20">
-                        <VerticalStackLayout Spacing="8">
-                            <Label Text="CORREO ELECTRÓNICO" FontSize="12" TextColor="#94A3B8" FontAttributes="Bold" />
-                            <Border Stroke="#475569" StrokeThickness="1" BackgroundColor="#0F172A" Padding="15,2">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12" />
-                                </Border.StrokeShape>
-                                <Entry Placeholder="tu@correo.com"
-                                       Text="{Binding Email}"
-                                       PlaceholderColor="#64748B"
-                                       TextColor="White"
-                                       Keyboard="Email"
-                                       ClearButtonVisibility="WhileEditing" 
-                                       BackgroundColor="Transparent"/>
-                            </Border>
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout Spacing="8">
-                            <Label Text="CONTRASEÑA" FontSize="12" TextColor="#94A3B8" FontAttributes="Bold" />
-                            <Border Stroke="#475569" StrokeThickness="1" BackgroundColor="#0F172A" Padding="15,2">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12" />
-                                </Border.StrokeShape>
-                                <Entry Placeholder="••••••••"
-                                       Text="{Binding Password}"
-                                       PlaceholderColor="#64748B"
-                                       TextColor="White"
-                                       IsPassword="True" 
-                                       BackgroundColor="Transparent"/>
-                            </Border>
-                        </VerticalStackLayout>
-
-                        <Button Text="INICIAR SESIÓN"
-                                Command="{Binding LoginCommand}"
-                                BackgroundColor="#3B82F6"
-                                TextColor="White"
-                                FontAttributes="Bold"
-                                FontSize="16"
-                                CornerRadius="14"
-                                HeightRequest="55"
-                                Margin="0,20,0,0">
-                            <Button.Shadow>
-                                <Shadow Brush="#3B82F6" Offset="0,8" Radius="20" Opacity="0.5" />
-                            </Button.Shadow>
-                        </Button>
-
-                        <Label Text="{Binding ErrorMessage}" 
-                               TextColor="#EF4444" 
-                               HorizontalOptions="Center" 
-                               FontSize="13" 
-                               Margin="0,10,0,0"
-                               IsVisible="{Binding HasError}"/>
-                    </VerticalStackLayout>
+                    <Grid ColumnDefinitions="Auto,*"
+                          Padding="15,0">
+                        
+                        <!--Icono USUARIO-->
+                        <Image Source="user_icon.svg"
+                               HeightRequest="20"
+                               WidthRequest="20"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Placeholder="Correo electrónico"
+                               Text="{Binding Email}"
+                               Keyboard="Email"/>
+                    </Grid>
                 </Border>
+                <!--INPUT CONTRASEÑA-->
+                <Border Style="{StaticResource InputBorderStyle}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="27" />
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="Auto,*,Auto"
+                          Padding="15,0">
+                        
+                        <!--ICONO CANDADO-->
+                        <Image Source="candado_icon.svg"
+                               HeightRequest="19"
+                               WidthRequest="19"
+                               VerticalOptions="Center"/>
+                        <Entry
+                            x:Name="PasswordEnrty"
+                            Grid.Column="1"
+                            Placeholder="Contraseña"
+                            Text="{Binding Password}"
+                            VerticalOptions="Center"
+                            IsPassword="True"/>
+                        
+                        <!--VER CONTRASEÑA-->
+                        <ImageButton
+                            x:Name="EyeBtn"
+                            Grid.Column="2"
+                            Source="eye_closed_icon.svg"
+                            Clicked="OnEyeClicked"
+                            HeightRequest="26"
+                            WidthRequest="26" 
+                            VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <!--CHECKBOX RECORDARME-->
+                <HorizontalStackLayout Spacing="10" Margin="5,5,0,5">
+                    <CheckBox IsChecked="{Binding Recordarme}" 
+                              Color="{StaticResource AccentColor}" />
+                    <Label Text="Recordarme" 
+                           TextColor="{StaticResource TextSecondary}" 
+                           VerticalOptions="Center" 
+                           FontSize="14"/>
+                </HorizontalStackLayout>
+
+                <!--BOTON INICIO SESION-->
+                <Button Text="Iniciar sesión"
+                        Command="{Binding LoginCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Margin="0,15,0,5">
+                    <Button.Shadow>
+                        <Shadow Brush="{StaticResource AccentColor}"
+                                Offset="0,10"
+                                Radius="15"
+                                Opacity="0.4" />
+                    </Button.Shadow>
+                </Button>
+                
+                <!--OLVIDE MI CONTRASEÑA-->
+                <Label Text="Olvidé mi contraseña"
+                       TextColor="{StaticResource AccentColor}"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextDecorations="Underline"/>
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="Red"
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding HasError}"
+                       Margin="0,10,0,0"/>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

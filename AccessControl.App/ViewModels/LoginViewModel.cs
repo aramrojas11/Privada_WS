@@ -13,13 +13,15 @@ namespace AccessControl.App.ViewModels
     // Heredar de ObservableObject es la magia del CommunityToolkit
     public partial class LoginViewModel : ObservableObject
     {
-        // El atributo [ObservableProperty] genera automáticamente la propiedad pública 
-        // y el código que le avisa a la interfaz gráfica cuando el valor cambia.
         [ObservableProperty]
         private string email = string.Empty;
 
         [ObservableProperty]
         private string password = string.Empty;
+
+        // NUEVA PROPIEDAD PARA EL CHECKBOX
+        [ObservableProperty]
+        private bool recordarme;
 
         [ObservableProperty]
         private string errorMessage = string.Empty;
@@ -28,14 +30,12 @@ namespace AccessControl.App.ViewModels
         private bool hasError;
 
         [ObservableProperty]
-        private bool isBusy; 
+        private bool isBusy;
 
         private readonly HttpClient _httpClient;
 
         public LoginViewModel()
         {
-            // Nota de desarrollo local: Evitamos validaciones SSL estrictas 
-            // que suelen dar problemas en emuladores de Android con certificados locales.
             var handler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
@@ -43,7 +43,6 @@ namespace AccessControl.App.ViewModels
             _httpClient = new HttpClient(handler);
         }
 
-        // [RelayCommand] convierte este método en un ICommand que el botón en XAML puede ejecutar
         [RelayCommand]
         public async Task LoginAsync()
         {
@@ -60,14 +59,9 @@ namespace AccessControl.App.ViewModels
             {
                 var request = new LoginRequest { Email = this.Email, Password = this.Password };
 
-                // Solo usamos http:// (sin la S) y la ruta correcta
+                // Usamos http:// (sin la S) y la ruta correcta a tu PC
                 string apiUrl = "http://192.168.100.159:5168/api/Auth/login";
 
-                //Quiza se usen eventualmente
-                //    ? "https://192.168.100.159:5168/api/Auth/login"
-                //    : "https://192.168.100.159:5168/api:Auth/login";
-
-                // Hacemos la petición POST a la API
                 var response = await _httpClient.PostAsJsonAsync(apiUrl, request);
 
                 if (response.IsSuccessStatusCode)
@@ -76,26 +70,35 @@ namespace AccessControl.App.ViewModels
 
                     if (loginResponse != null && loginResponse.Exito)
                     {
-                        // 1. Mostrar un Pop-up con el nombre real que viene de la Base de Datos
-                        await Application.Current.MainPage.DisplayAlert(
-                            "¡Conexión Exitosa!",
-                            $"Bienvenido a la Privada, {loginResponse.NombreCompleto}.",
-                            "¡Genial!");
+                        // ----- LÓGICA DE GUARDAR SESIÓN -----
+                        if (Recordarme)
+                        {
+                            Preferences.Default.Set("IsLoggedIn", true);
+                            Preferences.Default.Set("NombreUsuario", loginResponse.NombreCompleto);
+                            Preferences.Default.Set("EsAdmin", loginResponse.EsAdministrador);
+                        }
+                        else
+                        {
+                            // Si desmarcó la casilla, limpiamos todo por seguridad
+                            Preferences.Default.Remove("IsLoggedIn");
+                            Preferences.Default.Remove("NombreUsuario");
+                            Preferences.Default.Remove("EsAdmin");
+                        }
+                        // -------------------------------------
 
-                        // 2. Comentamos temporalmente la navegación para que la app no crashee
-                        // await Shell.Current.GoToAsync("//MainPage"); 
+                        // Navegamos al Dashboard
+                        await Shell.Current.GoToAsync(nameof(MainPage));
                     }
                 }
                 else
                 {
-                    // Si la API nos rebotó (Código 400 o 401), leemos el mensaje de tu backend
                     var errorResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
                     MostrarError(errorResponse?.Mensaje ?? "Credenciales incorrectas.");
                 }
             }
             catch (Exception ex)
             {
-                MostrarError("Error al conectar con el servidor.");
+                MostrarError($"Error: {ex.Message}");
             }
             finally
             {
