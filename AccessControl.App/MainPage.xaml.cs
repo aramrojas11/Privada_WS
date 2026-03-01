@@ -1,4 +1,5 @@
 ﻿using AccessControl.App.Views;
+using AccessControl.App.ViewModels;
 
 namespace AccessControl.App
 {
@@ -9,6 +10,8 @@ namespace AccessControl.App
         public MainPage()
         {
             InitializeComponent();
+
+            BindingContext = new DashboardViewModel();
         }
 
         private async void OnDashboardClicked(object sender, EventArgs e)

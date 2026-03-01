@@ -19,7 +19,6 @@ namespace AccessControl.App.ViewModels
         [ObservableProperty]
         private string password = string.Empty;
 
-        // NUEVA PROPIEDAD PARA EL CHECKBOX
         [ObservableProperty]
         private bool recordarme;
 

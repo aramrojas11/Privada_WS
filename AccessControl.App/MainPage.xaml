@@ -16,7 +16,24 @@
 
         <ScrollView>
             <VerticalStackLayout Spacing="25"
-                                 Padding="25,50,25,40">
+                                 Padding="25,20,25,40">
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CerrarSesionCommand}" />
+                    </HorizontalStackLayout.GestureRecognizers>
+
+                    <Label Text="Cerrar sesión" 
+                               TextColor="{StaticResource AccentColor}" 
+                               FontSize="12" 
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+
+                    <Image Source="logout_icon.svg" 
+                               HeightRequest="20" 
+                               WidthRequest="20" 
+                               VerticalOptions="Center"/>
+                </HorizontalStackLayout>
 
                 <!-- HEADER -->
                 <Grid ColumnDefinitions="*,Auto">
@@ -28,7 +45,7 @@
                                FontSize="16"
                                TextColor="{StaticResource TextSecondary}"/>
 
-                        <Label Text="Residente"
+                        <Label Text="{Binding NombreResidente}"
                                FontSize="26"
                                FontAttributes="Bold"
                                TextColor="{StaticResource TextPrimary}"/>
@@ -81,7 +98,7 @@
                         </HorizontalStackLayout>
 
                         <Button Text="Abrir portón"
-                                Clicked="OnPortonVehicularClicked"
+                                Command="{Binding AbrirPortonVehicularCommand}"
                                 Style="{StaticResource PrimaryShadowButtonStyle}"/>
                     </VerticalStackLayout>
                 </Border>
@@ -110,7 +127,7 @@
                         </HorizontalStackLayout>
 
                         <Button Text="Abrir puerta peatonal"
-                                Clicked="OnPuertaPeatonalClicked"
+                                Command="{Binding AbrirPuertaPeatonalCommand}"
                                 Style="{StaticResource PrimaryShadowButtonStyle}"/>
                     </VerticalStackLayout>
                 </Border>
@@ -146,7 +163,7 @@
                                 StrokeShape="RoundRectangle 20">
 
                             <ImageButton Source="row_right_icon.svg"
-                                         Clicked="OnCamarasVigilanciaClicked"
+                                         Command="{Binding VerCamarasCommand}"
                                          HeightRequest="30"
                                          WidthRequest="30"/>
                         </Border>
