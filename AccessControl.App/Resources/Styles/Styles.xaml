@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    
+    
     <!--#region Estilos LOGIN -->
     
         <!--#region ENTRY GLOBAL STYLE-->
@@ -37,7 +39,7 @@
     
         <!--#region Estilos CARD-->
     <Style x:Key="CardStyle" TargetType="Border">
-        <Setter Property="Stroke" Value="Transparent"/>
+        <Setter Property="Stroke" Value="{StaticResource BorderColor}"/>
         <Setter Property="BackgroundColor" Value="White"/>
         <Setter Property="Padding" Value="20,25"/>
         <Setter Property="StrokeShape">
@@ -58,7 +60,7 @@
 
         <!--#region ICON CONTAINER STYLE-->
     <Style x:Key="IconContainerStyle" TargetType="Border">
-        <Setter Property="Stroke" Value="Transparent"/>
+        <Setter Property="Stroke" Value="{StaticResource BorderColor}"/>
         <Setter Property="BackgroundColor" Value="{StaticResource PageBackground}"/>
         <Setter Property="WidthRequest" Value="55"/>
         <Setter Property="HeightRequest" Value="55"/>
@@ -72,20 +74,40 @@
 
         <!--#region PRIMARY BUTTON WITH SHADOW-->
     <Style x:Key="PrimaryShadowButtonStyle"
-   TargetType="Button"
-   BasedOn="{StaticResource PrimaryButtonStyle}">
-
+           TargetType="Button"
+           BasedOn="{StaticResource PrimaryButtonStyle}">
         <Setter Property="Shadow">
             <Setter.Value>
                 <Shadow Brush="{StaticResource AccentColor}"
-                Offset="0,10"
+                Offset="0,30"
                 Radius="15"
                 Opacity="0.3"/>
             </Setter.Value>
         </Setter>
     </Style>
     <!--#endregion-->
+    
+        <!--#region BOTON ALARMA STYLES-->
+    <Style x:Key="AlarmStyleCard" TargetType="Border">
+        <Setter Property="Stroke" Value="{StaticResource AlarmColor}"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource AlarmBackground}"/>
+        <Setter Property="Padding" Value="20,25"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="30"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource PrimaryDark}"
+            Offset="0,15"
+            Radius="25"
+            Opacity="0.08"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!--#endregion-->
     
+    <!--#endregion-->
 </ResourceDictionary>
     
