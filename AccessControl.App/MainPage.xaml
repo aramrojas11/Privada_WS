@@ -29,7 +29,7 @@
                                FontAttributes="Bold"
                                VerticalOptions="Center"/>
 
-                    <Image Source="logout_icon.svg" 
+                    <Image Source="logout_icon.svg"
                                HeightRequest="20" 
                                WidthRequest="20" 
                                VerticalOptions="Center"/>
@@ -52,7 +52,8 @@
                     </VerticalStackLayout>
 
                     <!-- Icono Usuario -->
-                    <Border Grid.Column="1"
+                    <Border Style="{StaticResource CardStyle}"
+                            Grid.Column="1"
                             BackgroundColor="White"
                             WidthRequest="55"
                             HeightRequest="55"
@@ -172,22 +173,12 @@
                 </Border>
 
                 <!-- ALARMA VECINAL -->
-                <Border Stroke="Transparent"
-                        BackgroundColor="#FFF5F5"
-                        Padding="20"
-                        Margin="0,15,0,0"
-                        StrokeShape="RoundRectangle 30">
+                <Border Style="{StaticResource AlarmStyleCard}"
+                        Margin="0,15,0,0">
 
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnAlarmaClicked" />
+                        <TapGestureRecognizer Command="{Binding ActivarAlarmaCommand}" />
                     </Border.GestureRecognizers>
-
-                    <Border.Shadow>
-                        <Shadow Brush="#E53935"
-                                Offset="0,10"
-                                Radius="20"
-                                Opacity="0.15"/>
-                    </Border.Shadow>
 
                     <HorizontalStackLayout Spacing="15"
                                            HorizontalOptions="Center"
@@ -198,9 +189,9 @@
                                WidthRequest="40"/>
 
                         <Label Text="Activar alarma vecinal"
-                               FontSize="16"
+                               TextColor="{StaticResource TextAlarm}"
+                               FontSize="18"
                                FontAttributes="Bold"
-                               TextColor="#D32F2F"
                                VerticalOptions="Center"/>
                     </HorizontalStackLayout>
                 </Border>

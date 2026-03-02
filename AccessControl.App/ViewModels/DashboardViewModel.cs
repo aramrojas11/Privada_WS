@@ -11,7 +11,7 @@ namespace AccessControl.App.ViewModels
 {
     public partial class DashboardViewModel : ObservableObject
     {
-        // Esta propiedad se enlazará a la etiqueta de bienvenida
+        // Se usa para buscar eo nombre del residente
         [ObservableProperty]
         private string nombreResidente;
 

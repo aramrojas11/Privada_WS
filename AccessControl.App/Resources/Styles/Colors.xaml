@@ -5,10 +5,14 @@
     <Color x:Key="PrimaryColor">#935252</Color>
     <Color x:Key="PrimaryDark">#4A3B32</Color>
     <Color x:Key="AccentColor">#A4634B</Color>
+    <Color x:Key="BorderColor">#A4634B</Color>
+    <Color x:Key="AlarmColor">#ff0000</Color>
+    <Color x:Key="AlarmBackground">#F75059</Color>
 
-    <!-- Text -->
+        <!-- Text -->
     <Color x:Key="TextPrimary">#4A3B32</Color>
     <Color x:Key="TextSecondary">#8A7B72</Color>
+    <Color x:Key="TextAlarm">#FFFFFF</Color>
 
     <!-- Background -->
     <Color x:Key="PageBackground">#FAF8F5</Color>
