@@ -59,7 +59,12 @@ namespace AccessControl.App.ViewModels
                 var request = new LoginRequest { Email = this.Email, Password = this.Password };
 
                 // Usamos http:// (sin la S) y la ruta correcta a tu PC
-                string apiUrl = "http://192.168.100.159:5168/api/Auth/login";
+
+                // LOCAL
+                //string apiUrl = "http://192.168.100.159:5168/api/Auth/login";
+
+                //PRODUCCION
+                string apiUrl = "https://api-catalanes-g2egcwbqhjecd5f3.canadacentral-01.azurewebsites.net/api/Auth/login";
 
                 var response = await _httpClient.PostAsJsonAsync(apiUrl, request);
 
