@@ -16,19 +16,21 @@ namespace Privada_WS.Controllers
             _context = context;
         }
 
+        #region ACEESO PEATONAL Y VEHICULAR 
         [HttpPost("vehicular")]
         public async Task<IActionResult> AbrirVehicular([FromBody] AccionRequest request)
         {
-            // Sabemos que el 1 es el Vehicular por tu tabla Portones
+            //ENVIAMOS USUARIO ID Y PORTON ID PARA REGISTRAR EL ACCESO
             return await RegistrarAccesoY_Abrir(request.UsuarioId, portonId: 1);
         }
 
         [HttpPost("peatonal")]
         public async Task<IActionResult> AbrirPeatonal([FromBody] AccionRequest request)
         {
-            // Sabemos que el 2 es el Peatonal
+            //ENVIAMOS USUARIO ID Y PORTON ID PARA REGISTRAR EL ACCESO
             return await RegistrarAccesoY_Abrir(request.UsuarioId, portonId: 2);
         }
+        #endregion
 
         [HttpPost("alarma")]
         public async Task<IActionResult> ActivarAlarma([FromBody] AccionRequest request)
